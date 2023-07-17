@@ -1,17 +1,11 @@
 import { Editor } from './components/Editor';
-import { createContext } from 'react';
-
-const initialState = {
-    blocks: [],
-};
-
-export const EditorContext = createContext(initialState);
+import { Provider } from './state/Provider';
 
 function App() {
     return (
-        <EditorContext.Provider value={initialState}>
+        <Provider>
             <Editor />
-        </EditorContext.Provider>
+        </Provider>
     );
 }
 

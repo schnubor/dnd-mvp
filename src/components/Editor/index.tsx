@@ -1,15 +1,19 @@
 import { Sidebar } from './Sidebar';
 import { Artboard } from './Artboard';
+import { BlockMapper } from './Artboard/SortableBlock/BlockMapper.tsx';
 import { DndContext, DragOverlay, useSensors, useSensor, PointerSensor } from '@dnd-kit/core';
+
+// Utils
 import { createPortal } from 'react-dom';
-import { useState } from 'react';
+import { useContext } from 'react';
 
 // Types
 import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
+import { ActionTypes, EditorContext } from '../../state/Provider.tsx';
 
 export const Editor = () => {
-    const [activeDragBlock, setActiveDragBlock] = useState({ id: '', origin: '', type: '' });
-    const [artboardBlocks, setArtboardBlocks] = useState<{ id: string; type: string }[]>([]);
+    const { state, dispatch } = useContext(EditorContext);
+    console.log(state);
 
     const sensors = useSensors(
         useSensor(PointerSensor, {
@@ -19,24 +23,52 @@ export const Editor = () => {
         }),
     );
 
+    const handleDragStart = (event: DragStartEvent) => {
+        dispatch({
+            type: ActionTypes.Drag,
+            payload: {
+                blockId: event.active.id as string,
+                blockType: event.active?.data?.current?.type as string,
+                origin: event.active?.data?.current?.origin as string,
+            },
+        });
+    };
+
     const handleDragEnd = (event: DragEndEvent) => {
         const id = event.active.id as string;
         const destination = event.over?.id as string;
-        const origin = activeDragBlock.origin;
-        const type = activeDragBlock.type;
+        const allowedBlocks = event.over?.data?.current?.allowedBlocks as string[];
+        const origin = state?.draggingBlock?.origin;
+        const type = state?.draggingBlock?.type;
 
         if (!destination) return;
 
-        if (origin === 'sidebar') {
-            setArtboardBlocks([...artboardBlocks, { id, type }]);
+        if (origin === 'sidebar' && type) {
+            dispatch({
+                type: ActionTypes.Add,
+                payload: {
+                    blockId: id,
+                    blockType: type,
+                },
+            });
+            // setArtboardBlocks([...artboardBlocks, { id, type, origin }]);
         }
-    };
 
-    const handleDragStart = (event: DragStartEvent) => {
-        setActiveDragBlock({
-            id: event.active.id as string,
-            origin: event.active?.data?.current?.origin as string,
-            type: event.active?.data?.current?.type as string,
+        console.log('end drag:');
+        console.log('id:', id);
+        console.log('destination:', destination);
+        console.log('origin:', origin);
+        console.log('type:', type);
+        console.log('allowedBlocks:', allowedBlocks);
+        console.log('------------------');
+
+        dispatch({
+            type: ActionTypes.Drag,
+            payload: {
+                blockId: '',
+                blockType: '',
+                origin: '',
+            },
         });
     };
 
@@ -46,18 +78,16 @@ export const Editor = () => {
                 <Sidebar />
 
                 <div className="col-span-3 bg-gray-100 overflow-scroll">
-                    <Artboard blocks={artboardBlocks} />
+                    <Artboard blocks={state.blocks} />
                 </div>
 
                 {createPortal(
                     <DragOverlay>
-                        {activeDragBlock ? (
-                            <div className="rounded-lg border h-32 w-48 flex items-center justify-center bg-blue-50 text-sm">
-                                <div className="text-center">
-                                    <p>Block from: {activeDragBlock.origin}</p>
-                                    <p>Block id: {activeDragBlock.id}</p>
-                                </div>
-                            </div>
+                        {state.draggingBlock?.id ? (
+                            <BlockMapper
+                                blockId={state.draggingBlock?.id}
+                                type={state.draggingBlock?.type}
+                            />
                         ) : null}
                     </DragOverlay>,
                     document.body,
