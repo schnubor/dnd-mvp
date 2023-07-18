@@ -56,18 +56,15 @@ export const Editor = () => {
 
         // Within Artboard
         if (origin === 'artboard') {
-            // Sorting
-            if (destination === 'artboard') {
-                dispatch({
-                    type: ActionTypes.Move,
-                    payload: {
-                        blockId: id,
-                        blockType: type,
-                        oldIndex: state.blocks.findIndex((block) => block.id === id),
-                        newIndex: state.blocks.findIndex((block) => block.id === destination),
-                    },
-                });
-            }
+            dispatch({
+                type: ActionTypes.Move,
+                payload: {
+                    blockId: id,
+                    blockType: type,
+                    oldIndex: state.blocks.findIndex((block) => block.id === id),
+                    newIndex: state.blocks.findIndex((block) => block.id === destination),
+                },
+            });
         }
 
         console.log('end drag:');
