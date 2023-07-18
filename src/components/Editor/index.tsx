@@ -43,6 +43,7 @@ export const Editor = () => {
 
         if (!destination) return;
 
+        // From Sidebar to Artboard
         if (origin === 'sidebar' && type) {
             dispatch({
                 type: ActionTypes.Add,
@@ -51,15 +52,31 @@ export const Editor = () => {
                     blockType: type,
                 },
             });
-            // setArtboardBlocks([...artboardBlocks, { id, type, origin }]);
+        }
+
+        // Within Artboard
+        if (origin === 'artboard') {
+            // Sorting
+            if (destination === 'artboard') {
+                dispatch({
+                    type: ActionTypes.Move,
+                    payload: {
+                        blockId: id,
+                        blockType: type,
+                        oldIndex: state.blocks.findIndex((block) => block.id === id),
+                        newIndex: state.blocks.findIndex((block) => block.id === destination),
+                    },
+                });
+            }
         }
 
         console.log('end drag:');
         console.log('id:', id);
-        console.log('destination:', destination);
         console.log('origin:', origin);
+        console.log('destination:', destination);
         console.log('type:', type);
         console.log('allowedBlocks:', allowedBlocks);
+        console.log('over:', event.over);
         console.log('------------------');
 
         dispatch({

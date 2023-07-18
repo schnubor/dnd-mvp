@@ -1,4 +1,5 @@
 import { createContext, useReducer } from 'react';
+import { arrayMove } from '@dnd-kit/sortable';
 
 //Types
 import type { FC, ReactNode, Dispatch } from 'react';
@@ -30,6 +31,7 @@ type ActionPayload = {
     [ActionTypes.Move]: {
         blockType: BlockType;
         blockId: string;
+        oldIndex: number;
         newIndex: number;
     };
     [ActionTypes.Remove]: {
@@ -88,10 +90,16 @@ const reducer = (state: State, action: Action) => {
             };
         }
         case actions.MOVE_BLOCK: {
-            // TODO
-            console.log('move block', action);
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            const { oldIndex, newIndex } = action.payload;
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+            const blocks = arrayMove(state.blocks, oldIndex, newIndex);
 
-            return { ...state, blocks: state.blocks };
+            return {
+                ...state,
+                blocks,
+            };
         }
         case actions.DRAG_BLOCK: {
             return {
