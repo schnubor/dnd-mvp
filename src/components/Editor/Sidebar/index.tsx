@@ -11,6 +11,10 @@ const blocks: { type: BlockType; title: string }[] = [
         title: 'Text',
     },
     {
+        type: 'button',
+        title: 'Button',
+    },
+    {
         type: 'image',
         title: 'Image',
     },

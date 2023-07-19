@@ -15,6 +15,7 @@ interface Props {
 export const Artboard: FC<Props> = ({ blocks }) => {
     const { setNodeRef } = useDroppable({
         id: 'artboard',
+        data: {},
     });
 
     return (

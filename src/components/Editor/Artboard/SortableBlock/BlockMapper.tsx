@@ -1,5 +1,6 @@
-import { Text } from './Blocks/Text.tsx';
-import { Image } from './Blocks/Image.tsx';
+import { Text } from './Blocks/Text';
+import { Image } from './Blocks/Image';
+import { Button } from './Blocks/Button';
 import { Section } from './Blocks/Section';
 import { Placeholder } from './Blocks/Placeholder';
 
@@ -17,6 +18,9 @@ export const BlockMapper: FC<Props> = ({ type }) => {
     switch (type) {
         case 'text':
             Content = Text;
+            break;
+        case 'button':
+            Content = Button;
             break;
         case 'image':
             Content = Image;
