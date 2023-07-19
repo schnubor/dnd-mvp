@@ -80,7 +80,6 @@ export const Editor = () => {
                 id: active.id as string,
                 title,
                 type,
-                parent: null,
             };
 
             return;

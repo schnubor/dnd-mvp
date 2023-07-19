@@ -1,11 +1,11 @@
-// Types
-import { FC } from 'react';
-
 // Hooks
 import { useDroppable } from '@dnd-kit/core';
 
 // UI
 import { SortableBlock } from './SortableBlock';
+
+// Types
+import { FC } from 'react';
 import { Block } from '../../../types.ts';
 
 interface Props {
@@ -15,10 +15,6 @@ interface Props {
 export const Artboard: FC<Props> = ({ blocks }) => {
     const { setNodeRef } = useDroppable({
         id: 'artboard',
-        data: {
-            parent: null,
-            isContainer: true,
-        },
     });
 
     return (

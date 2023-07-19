@@ -1,11 +1,13 @@
-// Types
-import type { FC } from 'react';
-
 // UI
 import { BlockMapper } from './BlockMapper';
+
+// Utils
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { Block } from '../../../../types.ts';
+
+// Types
+import type { FC } from 'react';
+import type { Block } from '../../../../types.ts';
 
 interface Props {
     id: string;

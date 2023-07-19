@@ -4,5 +4,4 @@ export interface Block {
     id: string;
     type: BlockType;
     title?: string;
-    parent?: string | null;
 }

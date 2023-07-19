@@ -1,7 +1,7 @@
 import { Text } from './Blocks/Text.tsx';
 import { Image } from './Blocks/Image.tsx';
-import { Section } from './Blocks/Section/Section.tsx';
-import { Placeholder } from './Blocks/Placeholder.tsx';
+import { Section } from './Blocks/Section/Section';
+import { Placeholder } from './Blocks/Placeholder';
 
 // Types
 import { FC } from 'react';

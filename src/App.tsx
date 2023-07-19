@@ -1,12 +1,7 @@
 import { Editor } from './components/Editor';
-import { Provider } from './state/Provider';
 
 function App() {
-    return (
-        <Provider>
-            <Editor />
-        </Provider>
-    );
+    return <Editor />;
 }
 
 export default App;

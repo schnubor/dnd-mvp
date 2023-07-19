@@ -1,4 +1,7 @@
+// UI
 import { DraggableBlock } from './DraggableBlock.tsx';
+
+// Types
 import { BlockType } from '../../../types.ts';
 import { FC } from 'react';
 
@@ -22,6 +25,9 @@ interface Props {
 }
 
 export const Sidebar: FC<Props> = ({ fieldsRegKey }) => {
+    // This `key` is literally key, since it causes the sidebar to re-render and thus it's children to re-render
+    // -> DraggableBlock get re-rendered and a new ID is generated within
+
     return (
         <div className="border-r col-span-1 p-2 space-y-2" key={fieldsRegKey}>
             {blocks.map((block) => (
