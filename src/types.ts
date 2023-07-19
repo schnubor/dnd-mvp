@@ -1,8 +1,8 @@
-export type BlockType = 'text' | 'image' | 'section';
+export type BlockType = 'text' | 'image' | 'section' | 'placeholder';
 
 export interface Block {
     id: string;
     type: BlockType;
-    childBlocks?: Block[];
-    origin?: string;
+    title?: string;
+    parent?: string | null;
 }

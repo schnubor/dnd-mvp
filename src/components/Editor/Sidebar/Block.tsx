@@ -1,9 +1,9 @@
 // Types
-import { FC } from 'react';
+import type { FC } from 'react';
 
 export interface Props {
     id: string;
-    title: string;
+    title?: string;
     isDragging?: boolean;
 }
 
@@ -15,7 +15,7 @@ export const Block: FC<Props> = ({ id, title, isDragging }) => {
             }`}
         >
             <div className="text-center">
-                <div className="text-lg font-semibold">{title}</div>
+                {title && <div className="text-lg font-semibold">{title}</div>}
                 <div className="text-xs text-gray-400 mt-2">id: {id}</div>
             </div>
         </div>

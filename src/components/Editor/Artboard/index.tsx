@@ -6,27 +6,29 @@ import { useDroppable } from '@dnd-kit/core';
 
 // UI
 import { SortableBlock } from './SortableBlock';
-import { SortableContext } from '@dnd-kit/sortable';
+import { Block } from '../../../types.ts';
 
 interface Props {
-    blocks: { id: string; type: string }[];
+    blocks: Block[];
 }
 
 export const Artboard: FC<Props> = ({ blocks }) => {
     const { setNodeRef } = useDroppable({
         id: 'artboard',
+        data: {
+            parent: null,
+            isContainer: true,
+        },
     });
 
     return (
         <div
-            className="bg-white shadow-xl rounded-lg w-[700px] min-h-[640px] h-auto my-12 mx-auto"
+            className="bg-white shadow-xl rounded-lg w-3/4 min-h-[640px] h-auto my-12 mx-auto"
             ref={setNodeRef}
         >
-            <SortableContext items={blocks.map((block) => block.id)}>
-                {blocks.map((block) => {
-                    return <SortableBlock key={block.id} id={block.id} type={block.type} />;
-                })}
-            </SortableContext>
+            {blocks.map((block, index) => {
+                return <SortableBlock key={block.id} id={block.id} block={block} index={index} />;
+            })}
         </div>
     );
 };

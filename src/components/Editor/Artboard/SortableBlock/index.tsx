@@ -5,18 +5,20 @@ import type { FC } from 'react';
 import { BlockMapper } from './BlockMapper';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { Block } from '../../../../types.ts';
 
 interface Props {
     id: string;
-    type: string;
+    block: Block;
+    index: number;
 }
 
-export const SortableBlock: FC<Props> = ({ type, id }) => {
+export const SortableBlock: FC<Props> = ({ id, block, index }) => {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
         id,
         data: {
-            origin: 'artboard',
-            type,
+            block,
+            index,
         },
     });
 
@@ -27,7 +29,7 @@ export const SortableBlock: FC<Props> = ({ type, id }) => {
 
     return (
         <div ref={setNodeRef} {...listeners} {...attributes} style={style}>
-            <BlockMapper type={type} blockId={id} />
+            <BlockMapper type={block.type} />
         </div>
     );
 };

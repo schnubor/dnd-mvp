@@ -3,15 +3,13 @@ import { SectionZone } from './SectionZone.tsx';
 // Types
 import { FC } from 'react';
 
-interface Props {
-    blockId: string;
-}
+interface Props {}
 
-export const Section: FC<Props> = ({ blockId }) => {
+export const Section: FC<Props> = ({}) => {
     return (
         <div className="text-xl font-semibold text-center p-6 grid grid-cols-2 gap-6">
-            <SectionZone blockId={blockId} />
-            <SectionZone blockId={blockId} />
+            <SectionZone />
+            <SectionZone />
         </div>
     );
 };

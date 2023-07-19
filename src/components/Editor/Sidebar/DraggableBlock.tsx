@@ -1,23 +1,28 @@
 import { useDraggable } from '@dnd-kit/core';
-
 import { Block } from './Block';
+import { nanoid } from 'nanoid';
 
 // Types
-import { FC } from 'react';
+import { FC, useRef } from 'react';
+import { BlockType } from '../../../types.ts';
 
 interface Props {
-    id: string;
-    title: string;
-    type: 'text' | 'image' | 'section';
+    title?: string;
+    type: BlockType;
 }
 
-export const DraggableBlock: FC<Props> = ({ id, type, title }) => {
+export const DraggableBlock: FC<Props> = ({ type, title }) => {
+    const id = useRef(nanoid()).current;
+
     const { setNodeRef, listeners, attributes } = useDraggable({
         id,
         data: {
-            type,
+            block: {
+                id,
+                type,
+                title,
+            },
             origin: 'sidebar',
-            some: 'data',
         },
     });
 
