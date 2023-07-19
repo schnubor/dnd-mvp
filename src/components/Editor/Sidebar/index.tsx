@@ -14,10 +14,10 @@ const blocks: { type: BlockType; title: string }[] = [
         type: 'button',
         title: 'Button',
     },
-    {
-        type: 'image',
-        title: 'Image',
-    },
+    // {
+    //     type: 'image',
+    //     title: 'Image',
+    // },
     {
         type: 'section',
         title: 'Section',
