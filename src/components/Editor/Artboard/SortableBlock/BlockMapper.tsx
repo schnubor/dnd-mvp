@@ -1,6 +1,6 @@
 import { Text } from './Blocks/Text.tsx';
 import { Image } from './Blocks/Image.tsx';
-import { Section } from './Blocks/Section/Section';
+import { Section } from './Blocks/Section';
 import { Placeholder } from './Blocks/Placeholder';
 
 // Types

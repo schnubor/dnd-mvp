@@ -22,7 +22,7 @@ import { useImmer } from 'use-immer';
 import type { DragEndEvent, DragStartEvent } from '@dnd-kit/core';
 import type { Block, BlockType } from '../../types.ts';
 
-const createPlaceholder = ({ id }: { id: string }): { id: string; type: BlockType } => {
+const createPlaceholder = ({ id }: { id: string }): Block => {
     return {
         id,
         type: 'placeholder',
